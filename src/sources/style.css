@@ -1,6 +1,14 @@
+@font-face {
+  font-family: "Prompt-Regular";
+  src: url("./fonts/Prompt-Regular.ttf");
+}
+
 * {
   margin: 0px;
   font-size: 15px;
+  border: none;
+  outline: none;
+  font-family: "Prompt-Regular";
 }
 
 html,
@@ -17,6 +25,26 @@ body,
 
 .mr-auto {
   float: left;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.w-100 {
+  width: 100%;
 }
 
 /*Header*/
@@ -56,6 +84,14 @@ header > div > .btn {
   margin-top: 1%;
 }
 
+.center-div {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 /*Buttons*/
 .btn {
   width: auto;
@@ -67,10 +103,28 @@ header > div > .btn {
   border-radius: 10px;
 }
 
+.btn-default-hover:hover {
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
 /*Others*/
 .title {
   color: #333333;
   font-weight: 700;
   font-size: 20px;
   margin-bottom: 1rem;
+}
+
+/*Login*/
+.login-div {
+  width: 30%;
+  height: auto;
+  text-align: center;
+  padding: 2%;
+  box-sizing: border-box;
+}
+
+.login-div > span > svg {
+  width: 150px;
+  height: 150px;
 }

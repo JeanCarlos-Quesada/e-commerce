@@ -22,7 +22,7 @@ const Header = () => {
       </div>
       <div className="ml-auto">
         <a href="#Register">Register</a>
-        <a href="#Login" className="btn">Login</a>
+        <a href="/Login" className="btn">Login</a>
         <span className="action-icon">
           <svg
             width="26"
