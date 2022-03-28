@@ -1,0 +1,76 @@
+* {
+  margin: 0px;
+  font-size: 15px;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/*Utilities*/
+.ml-auto {
+  float: right;
+}
+
+.mr-auto {
+  float: left;
+}
+
+/*Header*/
+header {
+  width: 100%;
+  height: 50px;
+  padding: 1% 1.5%;
+  box-sizing: border-box;
+}
+
+header > div > a {
+  text-decoration: none;
+  margin-right: 1rem;
+  color: #333333;
+  font-weight: 600;
+}
+
+header > div > span > svg {
+  margin-right: 1rem;
+  margin-bottom: -3%;
+}
+
+header > div > .btn {
+  margin-right: 1rem;
+}
+
+.action-icon {
+  cursor: pointer;
+}
+
+/*Container*/
+.container {
+  width: 100%;
+  height: 88%;
+  padding: 0px 1.5%;
+  box-sizing: border-box;
+  margin-top: 1%;
+}
+
+/*Buttons*/
+.btn {
+  width: auto;
+  padding: 10px 25px;
+  border: none;
+  cursor: pointer;
+  background: #136960;
+  color: #ece8e8;
+  border-radius: 10px;
+}
+
+/*Others*/
+.title {
+  color: #333333;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 1rem;
+}
