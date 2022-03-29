@@ -5,10 +5,10 @@ import Product from "./Product";
 
 const ProductList = () => {
   return (
-    <ul className="product-list">
+    <ul className='product-list'>
       {[0, 1, 2, 3, 4].map((item) => {
         return (
-          <li>
+          <li key={item}>
             <Product />
           </li>
         );

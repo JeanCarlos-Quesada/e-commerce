@@ -73,6 +73,7 @@ header > div > .btn {
 
 .action-icon {
   cursor: pointer;
+  position: relative;
 }
 
 /*Container*/
