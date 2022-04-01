@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { combineReducers, createStore } from "redux";
-import { Provider } from "react-redux";
+import { useSelector } from "react-redux";
 
 import "./sources/style.css";
 
@@ -9,35 +8,32 @@ import "./sources/style.css";
 import HomePage from "./home/screens/HomePage";
 import LoginPage from "./home/screens/LoginPage";
 import RegisterUserClient from "./home/screens/RegisterUserClient";
+import Catalog from "./Catalog/screens/Catalog";
 
 /*Components*/
 import Header from "./components/Header";
-
-/*Reducers*/
-import cartReducer from "./reducers/CartReducer";
-import userReducer from "./reducers/UserReducer";
+import Message from "./components/Message/Index";
 
 const App = () => {
-  const rootReducer = combineReducers({ cartReducer, userReducer });
-
-  const store = createStore(
-    rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  const messageBottom = useSelector(
+    (state) => state.messageReducer.bottomMessage
   );
 
   return (
-    <Provider store={store}>
-      <BrowserRouter basename='/'>
+    <React.Fragment>
+      <BrowserRouter basename="/">
         <Header />
-        <div className='container'>
+        <div className="container">
           <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/Login' element={<LoginPage />} />
-            <Route path='/Register' element={<RegisterUserClient />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/Login" element={<LoginPage />} />
+            <Route path="/Register" element={<RegisterUserClient />} />
+            <Route path="/Catalog" element={<Catalog />} />
           </Routes>
         </div>
       </BrowserRouter>
-    </Provider>
+      {messageBottom !== "" && <Message message={messageBottom} />}
+    </React.Fragment>
   );
 };
 

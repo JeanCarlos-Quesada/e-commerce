@@ -1,0 +1,18 @@
+.container-catalog{
+    position: relative;
+    display: inline-block;
+    width: 75%;
+    height: 100%;
+    float: right;
+    overflow: auto;
+}
+
+.container-catalog>div>.product{
+    display: inline-block;
+    margin-right: 4%;
+    margin-bottom: 4%;
+    padding: 2%;
+}
+.container-catalog>div>.product>.product-details{
+    width: 85%;
+}

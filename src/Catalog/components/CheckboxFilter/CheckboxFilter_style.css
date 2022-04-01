@@ -1,0 +1,28 @@
+
+.filter-check-box-status {
+    margin-top: 2%;
+    display: inline-flex;
+    width: 80px;
+  }
+  
+  .filter-check-box-categories {
+    margin-top: 2%;
+  }
+  
+  .filter-check-box-status > input {
+    margin-right: 10%;
+  }
+  
+  .filter-check-box-categories > input {
+    margin-right: 5%;
+  }
+  
+  .filter-check-box-status > label {
+    position: relative;
+    top: -4px;
+    color: #333333;
+  }
+  
+  .filter-check-box-categories > label {
+    color: #333333;
+  }

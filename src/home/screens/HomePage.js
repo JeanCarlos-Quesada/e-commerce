@@ -3,7 +3,7 @@ import "../../sources/homePage.css";
 
 /*Components*/
 import Banner from "../components/Banner";
-import ProductList from "../../components/ProductList";
+import ProductList from "../components/ProductList";
 
 const HomePage = () => {
   return (
