@@ -19,15 +19,15 @@ const HeaderMenu = ({ type }) => {
         },
         {
           name: "Sport",
-          link: "/Catalog?categories=Sport",
+          link: "/Catalog?category=Sport",
         },
         {
           name: "Casual",
-          link: "/Catalog?categories=Casual",
+          link: "/Catalog?category=Casual",
         },
         {
           name: "Formal",
-          link: "/Catalog?categories=Formal",
+          link: "/Catalog?category=Formal",
         },
       ];
     } else {

@@ -1,23 +1,19 @@
 import React from "react";
 import "./CheckboxFilter_style.css";
 
-const CheckboxFilter = ({ isCategories, id, defaultChecked, name, categorie, onChange }) => {
+const CheckboxFilter = ({ isHorizontal, id, defaultChecked, name, category, onChange }) => {
   const onCheckChange = () => {
-    onChange(categorie)
+    onChange(category)
     unCheck();
   };
 
   const unCheck = () => {
     let allChecksFathers = undefined;
 
-    if (isCategories) {
-      allChecksFathers = document.getElementsByClassName(
-        "filter-check-box-categories"
-      );
+    if (!isHorizontal) {
+      allChecksFathers = document.getElementsByClassName("filter-check-box-categories");
     } else {
-      allChecksFathers = document.getElementsByClassName(
-        "filter-check-box-status"
-      );
+      allChecksFathers = document.getElementsByClassName("filter-check-box-status");
     }
 
     for (var i = 0; i < allChecksFathers.length; i++) {
@@ -30,7 +26,7 @@ const CheckboxFilter = ({ isCategories, id, defaultChecked, name, categorie, onC
 
   return (
     <React.Fragment>
-      {isCategories && (
+      {!isHorizontal && (
         <div className="filter-check-box-categories">
           <input
             id={id}
@@ -41,7 +37,7 @@ const CheckboxFilter = ({ isCategories, id, defaultChecked, name, categorie, onC
           <label htmlFor={id}>{name}</label>
         </div>
       )}
-      {!isCategories && (
+      {isHorizontal && (
         <div className="filter-check-box-status">
           <input
             id={id}

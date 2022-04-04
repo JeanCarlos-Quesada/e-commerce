@@ -11,10 +11,22 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const dispatch = useDispatch();
   const cartList = useSelector((state) => state.cartReducer.list);
+  const cartCount = useSelector((state) => state.cartReducer.count);
   const user = useSelector((state) => state.userReducer.user);
 
   React.useEffect(() => {
     dispatch(getCart());
+
+    window.onscroll = () => {
+      var header = document.getElementsByTagName("header")[0];
+      var headerPosition = header.offsetTop;
+
+      if (window.pageYOffset > headerPosition) {
+        header.style.position = 'fixed'
+      } else {
+        header.style.position = 'unset'
+      }
+    };
   }, []);
 
   return (
@@ -40,8 +52,10 @@ const Header = () => {
       <div className='ml-auto'>
         {user === undefined && (
           <React.Fragment>
-            <Link to={'/Register'}>Register</Link>
-            <Link to={'/Login'} className="btn">Login</Link>
+            <Link to={"/Register"}>Register</Link>
+            <Link to={"/Login"} className='btn'>
+              Login
+            </Link>
           </React.Fragment>
         )}
         {user !== undefined && (
@@ -62,9 +76,9 @@ const Header = () => {
             <HeaderMenu type={"user"} />
           </span>
         )}
-        <span className='action-icon'>
+        <Link to={"/Catalog/Cart"} className='action-icon'>
           <span className='cartCount'>
-            {cartList.length > 99 ? `+99` : cartList.length}
+            {cartCount > 99 ? `+99` : cartCount}
           </span>
           <svg
             width='26'
@@ -78,7 +92,7 @@ const Header = () => {
               fill='#333333'
             />
           </svg>
-        </span>
+        </Link>
       </div>
     </header>
   );

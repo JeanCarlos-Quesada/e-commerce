@@ -65,6 +65,9 @@ header {
     height: 50px;
     padding: 1% 1.5%;
     box-sizing: border-box;
+    top: 0px;
+    background: rgb(255, 255, 255);
+    z-index: 5;
 }
 
 header>div>a {
@@ -72,6 +75,12 @@ header>div>a {
     margin-right: 1rem;
     color: #333333;
     font-weight: 600;
+    position: relative;
+    bottom: 5px;
+}
+
+header>div>a:last-child{
+    bottom: 0px;
 }
 
 header>div>span>svg {
@@ -86,6 +95,24 @@ header>div>.btn {
 .action-icon {
     cursor: pointer;
     position: relative;
+}
+
+.cartCount {
+    border-radius: 100px;
+    background: #136960;
+    color: #f2f2f2;
+    font-size: 11px;
+    width: auto;
+    min-width: 20px;
+    height: 20px;
+    position: absolute;
+    text-align: center;
+    right: -30%;
+    top: -70%;
+    padding: 2px;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 
@@ -119,6 +146,7 @@ header>div>.btn {
     text-align: center;
     margin-top: 3%;
     padding-bottom: 3%;
+    position: relative;
 }
 
 .form>.title {
@@ -150,7 +178,7 @@ header>div>.btn {
     border-radius: 5px;
 }
 
-.btn-cancel{
+.btn-cancel {
     background: #7E7E7E;
 }
 
