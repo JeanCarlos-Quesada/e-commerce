@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { combineReducers, createStore } from "redux";
+import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+import { logLocalStorage } from "./middleware/LocalStorage.";
 
 /*Reducers*/
 import cartReducer from "./reducers/CartReducer";
@@ -15,10 +16,12 @@ const rootReducer = combineReducers({
   messageReducer,
 });
 
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const composeEnhancers = compose(
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(logLocalStorage)
 );
+
+const store = createStore(rootReducer, composeEnhancers);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,4 +1,5 @@
 /*Cart*/
+export const SET_ITEMS_TO_CART = "SET_ITEMS_TO_CART";
 export const SET_ITEM_TO_CART = "SET_ITEM_TO_CART";
 export const GET_CART = "GET_CART";
 export const REMOVE_ITEM_TO_CART = "REMOVE_ITEM_TO_CART";

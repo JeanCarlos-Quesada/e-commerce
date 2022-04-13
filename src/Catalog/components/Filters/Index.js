@@ -43,22 +43,21 @@ const Filters = ({ state, saveState, saveTitle }) => {
         parseFloat(item.price) >= minPrice
     );
 
+    let newTitle = "All";
     if (search === "") {
       if (categoryValue !== "0" && /[0-9]+/.test(categoryValue)) {
         products = products.filter((item) => item.category === categoryValue);
+        newTitle = state.categories.find((item) => item.id === categoryValue).name;
         saveLastCategory(categoryValue);
       } else if (lastCategory !== undefined && categoryValue !== "0") {
         products = products.filter((item) => item.category === lastCategory);
+        newTitle = state.categories.find((item) => item.id === lastCategory).name;
       }
+
     }
 
-    if (categoryValue !== "0" || lastCategory !== "0") {
-      let newTitle = state.categories.find((item) => item.id === categoryValue).name;
-      saveTitle(newTitle);
-    }
-
+    saveTitle(newTitle);
     
-
     state.filterProducts = products;
 
     saveState({ ...state });

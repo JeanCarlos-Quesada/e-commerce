@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./sources/style.css";
 
@@ -16,23 +16,39 @@ import Cart from "./Catalog/screens/Cart";
 import Header from "./components/Header";
 import Message from "./components/Message/Index";
 
+/*useHooks*/
+import useLocalStorage from "./hooks/useLocalStorage";
+import { setItemsToCart } from "./actions/CartActions";
+
 const App = () => {
-  const messageBottom = useSelector(
-    (state) => state.messageReducer.bottomMessage
-  );
+  const { getItem } = useLocalStorage();
+  const dispatch = useDispatch();
+
+  const messageBottom = useSelector((state) => state.messageReducer.bottomMessage);
+  let cart = useSelector((state) => state.cartReducer);
+  // const products = useSelector(state=>state.cartReducer);
+
+  React.useEffect(() => {
+    if (cart.list.length === 0) {
+      let storageCart = JSON.parse(getItem("cart"));
+      if(storageCart !== null){
+        dispatch(setItemsToCart(storageCart));
+      }
+    }
+  }, []);
 
   return (
     <React.Fragment>
-      <BrowserRouter basename="/">
+      <BrowserRouter basename='/'>
         <Header />
-        <div className="container">
+        <div className='container'>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/Login" element={<LoginPage />} />
-            <Route path="/Register" element={<RegisterUserClient />} />
-            <Route path="/Catalog" element={<Catalog />} />
-            <Route path="/Catalog/Product" element={<ProductDetails />} />
-            <Route path="/Catalog/Cart" element={<Cart />} />
+            <Route path='/' element={<HomePage />} />
+            <Route path='/Login' element={<LoginPage />} />
+            <Route path='/Register' element={<RegisterUserClient />} />
+            <Route path='/Catalog' element={<Catalog />} />
+            <Route path='/Catalog/Product' element={<ProductDetails />} />
+            <Route path='/Catalog/Cart' element={<Cart />} />
           </Routes>
         </div>
       </BrowserRouter>

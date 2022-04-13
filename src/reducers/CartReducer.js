@@ -2,7 +2,8 @@ import {
   GET_CART,
   SET_ITEM_TO_CART,
   REMOVE_ITEM_TO_CART,
-  DELETE_ITEM_TO_CART
+  DELETE_ITEM_TO_CART,
+  SET_ITEMS_TO_CART
 } from "../actions/type";
 
 const initialState = {
@@ -12,8 +13,12 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_CART:
-      return { ...state };
+    case SET_ITEMS_TO_CART:
+      return {
+        ...state,
+        list: action.payload.list,
+        count: action.payload.count,
+      };
     case SET_ITEM_TO_CART:
       var cartList = [...state.list];
       var index = cartList.findIndex((x) => x.id === action.payload.id);

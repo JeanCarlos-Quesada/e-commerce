@@ -5,7 +5,7 @@ import Filters from "../components/Filters/Index";
 import ProductList from "../components/ProductList/Index";
 
 const Catalog = () => {
-  const [title, saveTitle] = React.useState("All Products");
+  const [title, saveTitle] = React.useState("All");
   const [state, saveState] = React.useState({
     categories: [
       {
