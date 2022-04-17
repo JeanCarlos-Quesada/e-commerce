@@ -9,7 +9,7 @@ import HomePage from "./home/screens/HomePage";
 import LoginPage from "./home/screens/LoginPage";
 import RegisterUserClient from "./home/screens/RegisterUserClient";
 import Catalog from "./Catalog/screens/Catalog";
-import ProductDetails from "./Catalog/screens/ProductDetails";
+import ProductDetails from "./Catalog/screens/ProductDetails/ProductDetails";
 import Cart from "./Catalog/screens/Cart";
 
 /*Components*/

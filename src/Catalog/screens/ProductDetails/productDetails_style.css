@@ -1,0 +1,17 @@
+.product-information {
+  position: relative;
+  width: 50%;
+  float: left;
+}
+
+.product-information > p {
+  color: #7e7e7e;
+}
+
+.sub-details{
+    margin-top: 4%;
+}
+
+.sub-details>*{
+    color: #333333;
+}

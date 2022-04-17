@@ -6,9 +6,10 @@ import {
 
 export const logLocalStorage = (store) => (next) => (action) => {
   next(action);
-  let actionType = action.action.type;
 
   try {
+    let actionType = action.action.type;
+
     if (
       actionType === SET_ITEM_TO_CART ||
       actionType === REMOVE_ITEM_TO_CART ||
