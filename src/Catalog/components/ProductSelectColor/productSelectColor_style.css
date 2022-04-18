@@ -1,14 +1,12 @@
-.color-selector{
+.color-selector {
     position: relative;
     width: 32px;
     height: 32px;
     display: inline-block;
     border-radius: 100%;
     cursor: pointer;
-    margin-top: 2%;
-    margin-bottom: 2%;
     margin-right: 1rem;
-    border: 1px solid rgba(0,0,0,0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .color-selector-selected::before {
@@ -21,8 +19,8 @@
     height: 20px;
     box-sizing: border-box;
     border-radius: 100%;
-    right: -8px;
-    top: -8px;
+    right: -6px;
+    top: -6px;
     background: #136960;
     color: #f2f2f2;
 }

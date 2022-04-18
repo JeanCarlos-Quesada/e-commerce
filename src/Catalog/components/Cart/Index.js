@@ -7,7 +7,7 @@ const CartProduct = ({ id, image, name, details, price, count }) => {
   const dispatch = useDispatch();
 
   const addProduct = () => {
-    dispatch(setItemToCart({ id, name, details, price }));
+    dispatch(setItemToCart({ id, name, details, price, amount: 1 }));
   };
 
   const removeProduct = () => {

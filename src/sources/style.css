@@ -21,6 +21,10 @@ body,
 
 /*Utilities*/
 
+.form-inline>* {
+    display: inline-block;
+}
+
 .ml-auto {
     float: right;
 }
@@ -79,7 +83,7 @@ header>div>a {
     bottom: 5px;
 }
 
-header>div>a:last-child{
+header>div>a:last-child {
     bottom: 0px;
 }
 

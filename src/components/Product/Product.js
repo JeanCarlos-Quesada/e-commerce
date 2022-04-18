@@ -9,7 +9,7 @@ const Product = ({ id, name, details, price }) => {
   const dispatch = useDispatch();
 
   const addToCart = () => {
-    dispatch(setItemToCart({ id, name, details, price }));
+    dispatch(setItemToCart({ id, name, details, price, amount: 1 }));
     dispatch(showMessage("Product Register"));
     /*hidden message*/
     setTimeout(() => {

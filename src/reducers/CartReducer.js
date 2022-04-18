@@ -22,7 +22,7 @@ const cartReducer = (state = initialState, action) => {
     case SET_ITEM_TO_CART:
       var cartList = [...state.list];
       var index = cartList.findIndex((x) => x.id === action.payload.id);
-      let count = index !== -1 ? (cartList[index].count += 1) : 1;
+      let count = index !== -1 ? (cartList[index].count += action.payload.amount) : action.payload.amount;
 
       if (index === -1) {
         action.payload.count = count;
@@ -30,7 +30,7 @@ const cartReducer = (state = initialState, action) => {
       } else {
         cartList[index].count = count;
       }
-      count = state.count + 1;
+      count = state.count + action.payload.amount;
       return { ...state, list: cartList, count: count };
     case REMOVE_ITEM_TO_CART:
       var cartList = [...state.list];
@@ -45,8 +45,9 @@ const cartReducer = (state = initialState, action) => {
     case DELETE_ITEM_TO_CART:
       var cartList = [...state.list];
       var index = cartList.findIndex((x) => x.id === action.payload);
+      var globalCount = state.count - cartList[index].count;
       cartList.splice(index, 1);
-      var globalCount = state.count - 1;
+      
       return { ...state, list: cartList, count: globalCount };
     default:
       return { ...state };

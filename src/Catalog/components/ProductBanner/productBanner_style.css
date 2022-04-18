@@ -1,25 +1,53 @@
 .product-banner {
-  position: relative;
-  width: 45%;
-  height: 80%;
-  border-radius: 15px;
-  background: #f2f2f2;
-  box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.1);
-  float: left;
-  margin-right: 2%;
-  display: grid;
-  place-items: center;
+    position: relative;
+    width: 45%;
+    height: 80%;
+    border-radius: 15px;
+    background: #f2f2f2;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.1);
+    float: left;
+    margin-right: 2%;
+    display: grid;
+    place-items: center;
 }
 
-.product-banner > div {
-  position: absolute;
-  text-align: center;
-  width: 95%;
-  height: 95%;
+.product-banner>div {
+    position: absolute;
+    text-align: center;
+    width: 95%;
+    height: 95%;
 }
-.product-banner > div > img {
-  position: relative;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
+
+.product-banner>div>img {
+    position: relative;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.image-list {
+    top: 80%;
+    width: 44%;
+    height: 15%;
+    margin-right: 2%;
+    position: absolute;
+    overflow: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.image-list>div {
+    text-align: center;
+    width: 20%;
+    height: 100%;
+    display: inline-block;
+    margin-right: 3%;
+    cursor: pointer;
+}
+
+.image-list>div>img {
+    position: relative;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }

@@ -1,0 +1,36 @@
+.cb_container{
+    width: max-content;
+}
+
+.cb_container>* {
+    display: inline-grid;
+    margin-bottom: 0.5rem;
+}
+
+.checkbox {
+    position: relative;
+    border: 1px solid grey;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    place-items: center;
+    padding: 0px;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.checkbox-contain {
+    width: 60%;
+    height: 60%;
+    border-radius: 100%;
+    position: relative;
+}
+
+.check {
+    border-color: #136960;
+}
+
+.check>.checkbox-contain {
+    background: #136960;
+}
