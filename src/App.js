@@ -15,18 +15,21 @@ import Cart from "./Catalog/screens/Cart";
 /*Components*/
 import Header from "./components/Header";
 import Message from "./components/Message/Index";
+import Loading from "./components/Loading/Loading";
 
-/*useHooks*/
+/*Hooks*/
 import useLocalStorage from "./hooks/useLocalStorage";
+
+/*Redux*/
 import { setItemsToCart } from "./actions/CartActions";
 
 const App = () => {
   const { getItem } = useLocalStorage();
   const dispatch = useDispatch();
 
-  const messageBottom = useSelector((state) => state.messageReducer.bottomMessage);
+  const messageBottom = useSelector((state) => state.utilitiesReducer.bottomMessage);
+  const loading = useSelector((state) => state.utilitiesReducer.loading);
   let cart = useSelector((state) => state.cartReducer);
-  // const products = useSelector(state=>state.cartReducer);
 
   React.useEffect(() => {
     if (cart.list.length === 0) {
@@ -53,6 +56,7 @@ const App = () => {
         </div>
       </BrowserRouter>
       {messageBottom !== "" && <Message message={messageBottom} />}
+      {loading && <Loading/>}
     </React.Fragment>
   );
 };

@@ -32,6 +32,10 @@ const Filters = ({ state, saveState, saveTitle }) => {
     calMaxPrice();
   }, [searchParams]);
 
+  React.useEffect(() => {
+    calMaxPrice();
+  }, [state]);
+
   const onFilter = (categoryValue) => {
     let search = document.getElementById("search-catalog").value.toUpperCase();
     let minPrice = parseFloat(document.getElementById("price").value);
@@ -46,11 +50,11 @@ const Filters = ({ state, saveState, saveTitle }) => {
     let newTitle = "All";
     if (search === "") {
       if (categoryValue !== "0" && /[0-9]+/.test(categoryValue)) {
-        products = products.filter((item) => item.category === categoryValue);
+        products = products.filter((item) => item.category.id.toString() === categoryValue);
         newTitle = state.categories.find((item) => item.id === categoryValue).name;
         saveLastCategory(categoryValue);
       } else if (lastCategory !== undefined && categoryValue !== "0") {
-        products = products.filter((item) => item.category === lastCategory);
+        products = products.filter((item) => item.category.id === lastCategory);
         newTitle = state.categories.find((item) => item.id === lastCategory).name;
       }
 
@@ -77,6 +81,7 @@ const Filters = ({ state, saveState, saveTitle }) => {
 
     saveMaxPrice(maxPrice);
   };
+  
 
   return (
     <div className='filter-container'>

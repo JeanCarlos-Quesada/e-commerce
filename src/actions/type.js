@@ -7,6 +7,8 @@ export const DELETE_ITEM_TO_CART = "DELETE_ITEM_TO_CART";
 /*User*/
 export const SET_USER = "SET_USER";
 export const DELETE_USER = "DELETE_USER";
-/*Messages*/
+/*Utilities*/
 export const SHOW_MESSAGE = "SHOW_MESSAGE";
 export const HIDDEN_MESSAGE = "HIDDEN_MESSAGE";
+export const SHOW_LOADING = "SHOW_LOADING";
+export const HIDDEN_LOADING = "HIDDEN_LOADING";

@@ -7,13 +7,13 @@ import { logLocalStorage } from "./middleware/LocalStorage.";
 /*Reducers*/
 import cartReducer from "./reducers/CartReducer";
 import userReducer from "./reducers/UserReducer";
-import messageReducer from "./reducers/MessagesReducer";
+import utilitiesReducer from "./reducers/UtilitiesReducer";
 import App from "./App";
 
 const rootReducer = combineReducers({
   cartReducer,
   userReducer,
-  messageReducer,
+  utilitiesReducer,
 });
 
 const composeEnhancers = compose(

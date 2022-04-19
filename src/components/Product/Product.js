@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setItemToCart } from "../../actions/CartActions";
-import { showMessage, hiddenMessage } from "../../actions/MessageActions";
+import { showMessage, hiddenMessage } from "../../actions/UtilitiesActions";
 import "./product_style.css";
 
 const Product = ({ id, name, details, price }) => {
@@ -21,9 +21,8 @@ const Product = ({ id, name, details, price }) => {
     <React.Fragment>
       <div className='product'>
         <Link to={`/Catalog/Product?code=${id}`}>
-          {" "}
           <img
-            src='http://cdn.shopify.com/s/files/1/0204/0483/0283/products/TR3MLUN_SHOE_ANGLE_GLOBAL_TREE_RUNNER_LUNA_WHITE_600x600.png?v=1619568174'
+            src='https://mir-s3-cdn-cf.behance.net/projects/404/9c5c9471006127.Y3JvcCwxMTQxLDg5Myw2Nyww.png'
             alt='Product Image'
           />
         </Link>

@@ -1,10 +1,20 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 /*Components*/
 import Filters from "../components/Filters/Index";
 import ProductList from "../components/ProductList/Index";
 
+/*Hooks*/
+import useProduct from "../../hooks/useProduct";
+
+/*Redux*/
+import { showLoading, hiddenLoading } from "../../actions/UtilitiesActions";
+
 const Catalog = () => {
+  const dispatch = useDispatch();
+  const { GetAll } = useProduct();
+
   const [title, saveTitle] = React.useState("All");
   const [state, saveState] = React.useState({
     categories: [
@@ -25,128 +35,26 @@ const Catalog = () => {
         name: "Formal",
       },
     ],
-    products: [
-      {
-        id: "0",
-        name: "Test1",
-        details: 'details',
-        category: "1",
-        price: 99.99,
-      },
-      {
-        id: "2",
-        name: "Test2",
-        details: 'details',
-        category: "2",
-        price: 50.99,
-      },
-      {
-        id: "3",
-        name: "Test3",
-        details: 'details',
-        category: "2",
-        price: 50.99,
-      },
-      {
-        id: "4",
-        name: "Test4",
-        details: 'details',
-        category: "2",
-        price: 50.99,
-      },
-      {
-        id: "5",
-        name: "Test5",
-        details: 'details',
-        category: "1",
-        price: 15.99,
-      },
-      {
-        id: "6",
-        name: "Test6",
-        details: 'details',
-        category: "2",
-        price: 50.99,
-      },
-      {
-        id: "7",
-        name: "Test7",
-        details: 'details',
-        category: "2",
-        price: 50.99,
-      },
-      {
-        id: "8",
-        name: "Test8",
-        details: 'details',
-        category: "2",
-        price: 17.99,
-      },
-    ],
-    filterProducts: [
-      {
-        id: "0",
-        name: "Test1",
-        details: 'details',
-        category: "1",
-        price: 99.99,
-      },
-      {
-        id: "2",
-        name: "Test2",
-        details: 'details',
-        category: "2",
-        price: 50.99,
-      },
-      {
-        id: "3",
-        name: "Test3",
-        details: 'details',
-        category: "2",
-        price: 50.99,
-      },
-      {
-        id: "4",
-        name: "Test4",
-        details: 'details',
-        category: "2",
-        price: 50.99,
-      },
-      {
-        id: "5",
-        name: "Test5",
-        details: 'details',
-        category: "1",
-        price: 15.99,
-      },
-      {
-        id: "6",
-        name: "Test6",
-        details: 'details',
-        category: "2",
-        price: 50.99,
-      },
-      {
-        id: "7",
-        name: "Test7",
-        details: 'details',
-        category: "2",
-        price: 50.99,
-      },
-      {
-        id: "8",
-        name: "Test8",
-        details: 'details',
-        category: "2",
-        price: 17.99,
-      },
-    ],
+    products: [],
+    filterProducts: [],
   });
+
+  React.useEffect(() => {
+    dispatch(showLoading());
+    GetAll().then((products) => {
+      /*save data in redux*/
+      state.products = products;
+      state.filterProducts = products;
+
+      saveState({ ...state });
+      dispatch(hiddenLoading());
+    });
+  }, []);
 
   return (
     <React.Fragment>
-      <Filters state={state} saveState={saveState} saveTitle={saveTitle}/>
-      <ProductList products={state.filterProducts} title={title}/>
+      <Filters state={state} saveState={saveState} saveTitle={saveTitle} />
+      <ProductList products={state.filterProducts} title={title} />
     </React.Fragment>
   );
 };

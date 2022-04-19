@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <React.Fragment>
       <Banner />
-      <h2 className="title">Most Popular Products</h2>
+      <h2 className='title'>Most Popular Products</h2>
       <ProductList />
     </React.Fragment>
   );

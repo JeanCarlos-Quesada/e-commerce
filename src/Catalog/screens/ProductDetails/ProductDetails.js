@@ -1,22 +1,44 @@
 import React from "react";
-import "./productDetails_style.css";
 import { useDispatch } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import "./productDetails_style.css";
 
 /*Components*/
 import ProductBanner from "../../components/ProductBanner/ProductBanner";
 import ProductSelectColor from "../../components/ProductSelectColor/ProductSelectColor";
 import CheckBox from "../../../components/CheckBox/CheckBox";
 
+/*Hooks*/
+import useProduct from "../../../hooks/useProduct";
+
+/*Redux*/
 import { setItemToCart } from "../../../actions/CartActions";
-import { showMessage, hiddenMessage } from "../../../actions/MessageActions";
+import { showMessage, hiddenMessage } from "../../../actions/UtilitiesActions";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
+  const { GetOne } = useProduct();
 
+  const [searchParams] = useSearchParams();
+  const params = Object.fromEntries([...searchParams]);
+
+  const [product, saveProduct] = React.useState({
+    colors: [],
+    sizes: [],
+  });
   const [cartInfo, saveCartInfo] = React.useState({
     amount: 1,
-    price: 99.99,
+    price: 0,
   });
+
+  React.useEffect(() => {
+    GetOne(params.code).then((product) => {
+      saveProduct(product);
+
+      cartInfo.price = product.price;
+      saveCartInfo({ ...cartInfo });
+    });
+  }, []);
 
   const changeAmount = (type) => {
     if (type === 1 && cartInfo.amount > 1) {
@@ -25,7 +47,7 @@ const ProductDetails = () => {
       cartInfo.amount += 1;
     }
 
-    cartInfo.price = (99.99 * cartInfo.amount).toFixed(2);
+    cartInfo.price = (product.price * cartInfo.amount).toFixed(2);
 
     saveCartInfo({ ...cartInfo });
   };
@@ -37,7 +59,7 @@ const ProductDetails = () => {
         name: "Product Name",
         details: "Details",
         price: cartInfo.price,
-        amount: cartInfo.amount
+        amount: cartInfo.amount,
       })
     );
     dispatch(showMessage("Product Register"));
@@ -51,22 +73,17 @@ const ProductDetails = () => {
     <React.Fragment>
       <ProductBanner />
       <div className='product-information'>
-        <h2 className='title'>Product Name</h2>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
-        </p>
+        <h2 className='title'>{product.name}</h2>
+        <p>{product.details}</p>
         <div className='sub-details'>
-          <h1>Colors</h1>
-          {["#4287f5", "#420a70", "#000000", "#FFFFFF"].map((item, index) => {
+          {product.sizes.length > 0 && <h1>Colors</h1>}
+          {product.colors.map((item, index) => {
             return <ProductSelectColor color={item} key={`color_${index}`} />;
           })}
         </div>
         <div className='sub-details'>
-          <h1>Size</h1>
-          {["S", "M", "L", "XL"].map((item, index) => {
+          {product.sizes.length > 0 && <h1>Size</h1>}
+          {product.sizes.map((item, index) => {
             return (
               <CheckBox
                 id={`checkBox_id_${item}`}
