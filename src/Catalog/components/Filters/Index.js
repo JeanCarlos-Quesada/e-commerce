@@ -12,16 +12,18 @@ const Filters = ({ state, saveState, saveTitle }) => {
   const [currentRange, saveCurrentRange] = React.useState(0);
   const [maxPrice, saveMaxPrice] = React.useState(0);
   const [lastCategory, saveLastCategory] = React.useState(undefined);
+  const [lastSubCategory, saveLastSubCategory] = React.useState(undefined);
+
+  /*Execute cal max price when the state change*/
+  React.useEffect(() => {
+    calMaxPrice();
+  }, [state]);
 
   React.useEffect(() => {
-    let categorySelected = state.categories.find(
-      (item) => item.name === params.category
-    );
+    let categorySelected = state.categories.find((item) => item.name === params.category);
 
     if (categorySelected !== undefined) {
-      state.filterProducts = state.products.filter(
-        (item) => item.category === categorySelected.id
-      );
+      state.filterProducts = state.products.filter((item) => item.category === categorySelected.id);
       saveLastCategory(categorySelected.id);
       saveTitle(categorySelected.name);
     } else {
@@ -32,42 +34,89 @@ const Filters = ({ state, saveState, saveTitle }) => {
     calMaxPrice();
   }, [searchParams]);
 
-  React.useEffect(() => {
-    calMaxPrice();
-  }, [state]);
 
-  const onFilter = (categoryValue) => {
+  const onFilter = (value, type)=>{
     let search = document.getElementById("search-catalog").value.toUpperCase();
     let minPrice = parseFloat(document.getElementById("price").value);
     let products = [];
 
-    products = state.products.filter(
-      (item) =>
-        item.name.toUpperCase().includes(search) &&
-        parseFloat(item.price) >= minPrice
-    );
-
-    let newTitle = "All";
-    if (search === "") {
-      if (categoryValue !== "0" && /[0-9]+/.test(categoryValue)) {
-        products = products.filter((item) => item.category.id.toString() === categoryValue);
-        newTitle = state.categories.find((item) => item.id === categoryValue).name;
-        saveLastCategory(categoryValue);
-      } else if (lastCategory !== undefined && categoryValue !== "0") {
-        products = products.filter((item) => item.category.id === lastCategory);
-        newTitle = state.categories.find((item) => item.id === lastCategory).name;
+    if (search !== "") {
+      products = state.products.filter((item) => item.name.toUpperCase().includes(search));
+      products = products.filter(x => parseFloat(x.price) >= minPrice);
+      resetCheckBox(true);
+    } else{
+      switch (type) {
+        case 'category':
+          products = onFilterCategory(value);
+          state.filterSubCategories = value === "0" ? state.subCategories : state.subCategories.filter(x => x.category === value || x.category === "0");
+          break;
+        case 'subCategory':
+          products = onFilterSubCategories(value);
+          break;
+        case 'price':
+          products = onFilterSubCategories(value);
+          products = products.filter(x => parseFloat(x.price) >= minPrice);
+          break;
+        default:
+          products = state.products;
+          break;
       }
-
     }
-
-    saveTitle(newTitle);
     
     state.filterProducts = products;
 
-    saveState({ ...state });
     saveCurrentRange(minPrice);
-    calMaxPrice();
-  };
+    saveState({...state});
+  }
+
+  const onFilterCategory = (category)=>{
+    let products = state.products;
+    let newTitle = "All";
+    if (category !== "0" && /[0-9]+/.test(category)) {
+      products = products.filter((x) => x.categoryID.toString() === category);
+      newTitle = state.categories.find((item) => item.id === category).name;
+      saveLastCategory(category);
+    } else if (lastCategory !== undefined && category !== "0") {
+      products = products.filter((item) => item.categoryID.toString() === lastCategory);
+      newTitle = state.categories.find((item) => item.id === lastCategory).name;
+    } else {
+      saveLastCategory(undefined);
+    }
+
+    saveTitle(newTitle);
+    resetCheckBox(false);
+
+    return products;
+  }
+
+  const onFilterSubCategories = (subCategory)=>{
+    let products = state.products;
+
+    if (subCategory !== "0" && /[0-9]+/.test(subCategory)) {
+      products = products.filter((x) => x.subCategoryID.toString() === subCategory && (x.categoryID.toString() === lastCategory || lastCategory === undefined));
+      saveLastSubCategory(subCategory);
+    } else if (lastSubCategory !== undefined && subCategory !== "0") {
+      products = products.filter((x) => x.subCategoryID.toString() === lastSubCategory && (x.categoryID.toString() === lastCategory || lastCategory === undefined));
+    } else if (lastCategory !== undefined) {
+      saveLastSubCategory(undefined);
+      products = products.filter((x) => x.categoryID.toString() === lastCategory);
+    }
+
+    return products;
+  }
+
+  const resetCheckBox = (resetCategories) =>{
+    let allChecksFathers = document.getElementsByClassName("filter-check-box-categories");
+
+    for (var i = 0; i < allChecksFathers.length; i++) {
+      let checkbox = allChecksFathers[i].getElementsByTagName("input")[0];
+      if(checkbox.id.includes("sub_category")){
+        checkbox.checked = checkbox.id === "sub_category_All";
+      } else if (resetCategories) {
+        checkbox.checked = checkbox.id === "category_All";
+      }
+    }
+  }
 
   const calMaxPrice = async () => {
     let maxPrice = 0;
@@ -110,7 +159,9 @@ const Filters = ({ state, saveState, saveTitle }) => {
           type={"range"}
           defaultValue={0}
           max={maxPrice}
-          onChange={onFilter}
+          onChange={() => {
+            onFilter(null,"price");
+          }}
         ></input>
       </div>
       <div className='input-filter-catalog'>
@@ -142,7 +193,28 @@ const Filters = ({ state, saveState, saveTitle }) => {
               name={item.name}
               defaultChecked={params.category && params.category === item.name ? true : params.category === undefined && item.name === 'All'}
               category={item.id}
-              onChange={onFilter}
+              onChange={(value) => {
+                onFilter(value,"category");
+              }}
+              key={`category-filter-${index}`}
+            />
+          );
+        })}
+      </div>
+      <div className='input-filter-catalog'>
+        <label>Sub Categories</label>
+        <br />
+        {state.filterSubCategories.map((item, index) => {
+          return (
+            <CheckboxFilter
+              isHorizontal={false}
+              id={`sub_category_${item.name}`}
+              name={item.name}
+              defaultChecked={params.category && params.category === item.name ? true : params.category === undefined && item.name === 'All'}
+              category={item.id}
+              onChange={(value) => {
+                onFilter(value,"subCategory");
+              }}
               key={`category-filter-${index}`}
             />
           );

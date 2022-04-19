@@ -30,9 +30,49 @@ const Catalog = () => {
         id: "2",
         name: "Casual",
       },
+    ],
+    subCategories: [
+      {
+        id: "0",
+        name: "All",
+        category: "0"
+      },
+      {
+        id: "1",
+        name: "Futbol",
+        category: "1"
+      },
+      {
+        id: "2",
+        name: "Test",
+        category: "2"
+      },
       {
         id: "3",
-        name: "Formal",
+        name: "Test2",
+        category: "2"
+      },
+    ],
+    filterSubCategories: [
+      {
+        id: "0",
+        name: "All",
+        category: "0"
+      },
+      {
+        id: "1",
+        name: "Futbol",
+        category: "1"
+      },
+      {
+        id: "2",
+        name: "Test",
+        category: "2"
+      },
+      {
+        id: "3",
+        name: "Test2",
+        category: "2"
       },
     ],
     products: [],

@@ -18,7 +18,9 @@ const CheckboxFilter = ({ isHorizontal, id, defaultChecked, name, category, onCh
 
     for (var i = 0; i < allChecksFathers.length; i++) {
       let checkbox = allChecksFathers[i].getElementsByTagName("input")[0];
-      if (checkbox.id !== id) {
+      if(checkbox.id !== id && id.includes("sub_category") && checkbox.id.includes("sub_category")){
+        checkbox.checked = false;
+      }else if(checkbox.id !== id && !checkbox.id.includes("sub_category") && !id.includes("sub_category")){
         checkbox.checked = false;
       }
     }
