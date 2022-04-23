@@ -11,8 +11,14 @@ const useAxios = () => {
     return result.data;
   };
 
+  const Post = async (query, body) => {
+    let result = await instance.post(query, body);
+    return result.data;
+  };
+
   return {
     Get,
+    Post,
   };
 };
 

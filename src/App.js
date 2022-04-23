@@ -22,6 +22,7 @@ import useLocalStorage from "./hooks/useLocalStorage";
 
 /*Redux*/
 import { setItemsToCart } from "./actions/CartActions";
+import { setUser } from "./actions/UserActions";
 
 const App = () => {
   const { getItem } = useLocalStorage();
@@ -30,12 +31,21 @@ const App = () => {
   const messageBottom = useSelector((state) => state.utilitiesReducer.bottomMessage);
   const loading = useSelector((state) => state.utilitiesReducer.loading);
   let cart = useSelector((state) => state.cartReducer);
+  let user = useSelector((state) => state.userReducer.user);
+  console.log("🚀 ~ file: App.js ~ line 35 ~ App ~ user", user)
 
   React.useEffect(() => {
     if (cart.list.length === 0) {
       let storageCart = JSON.parse(getItem("cart"));
       if(storageCart !== null){
         dispatch(setItemsToCart(storageCart));
+      }
+    }
+
+    if (user === null) {
+      let storageUser = JSON.parse(getItem("user"));
+      if(storageUser !== undefined && storageUser !== null && storageUser.user !== null){
+        dispatch(setUser(storageUser.user));
       }
     }
   }, []);

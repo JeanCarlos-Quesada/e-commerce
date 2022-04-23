@@ -19,6 +19,7 @@ const Cart = () => {
             details={item.details}
             price={item.price}
             count={item.count}
+            amountInInventory={item.amountInInventory}
             key={`product_${index}`}
           />
         );

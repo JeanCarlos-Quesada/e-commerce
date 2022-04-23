@@ -1,28 +1,19 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 /*Components*/
 import Input from "../../components/Input/Index";
 
-/*Actions*/
-import { setUser } from "../../actions/UserActions";
+/*Hooks*/
+import useUser from "../../hooks/useUser";
 
 const LoginPage = () => {
-  const dispatch = useDispatch();
-  const navigator = useNavigate();
-
+  const { Login } = useUser();
+  
   /*Save the data from the inputs*/
   const onChange = (id, value) => {};
 
   const logIn = () => {
-    dispatch(
-      setUser({
-        id: 1,
-      })
-    );
-
-    navigator("/");
+    Login('jquesada');
   };
 
   return (

@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const cartList = useSelector((state) => state.cartReducer.list);
   const cartCount = useSelector((state) => state.cartReducer.count);
   const user = useSelector((state) => state.userReducer.user);
 
@@ -50,7 +49,7 @@ const Header = () => {
         <a href='#logo'>Logo</a>
       </div>
       <div className='ml-auto'>
-        {user === undefined && (
+        {user === null && (
           <React.Fragment>
             <Link to={"/Register"}>Register</Link>
             <Link to={"/Login"} className='btn'>
@@ -58,7 +57,7 @@ const Header = () => {
             </Link>
           </React.Fragment>
         )}
-        {user !== undefined && (
+        {user !== null && (
           <span className='action-icon'>
             <svg
               width='27'

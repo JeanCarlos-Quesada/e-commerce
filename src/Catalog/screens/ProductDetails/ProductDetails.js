@@ -29,6 +29,7 @@ const ProductDetails = () => {
   const [cartInfo, saveCartInfo] = React.useState({
     amount: 1,
     price: 0,
+    amountInInventory: 0
   });
 
   React.useEffect(() => {
@@ -36,33 +37,47 @@ const ProductDetails = () => {
       saveProduct(product);
 
       cartInfo.price = product.price;
+      cartInfo.amountInInventory = product.amountInInventory;
       saveCartInfo({ ...cartInfo });
     });
   }, []);
 
   const changeAmount = (type) => {
-    if (type === 1 && cartInfo.amount > 1) {
-      cartInfo.amount -= 1;
-    } else if (type === 2) {
-      cartInfo.amount += 1;
+    if (product.amountInInventory > cartInfo.amount) {
+      if (type === 1 && cartInfo.amount > 1) {
+        cartInfo.amount -= 1;
+      } else if (type === 2) {
+        cartInfo.amount += 1;
+      }
+
+      cartInfo.price = (product.price * cartInfo.amount).toFixed(2);
+
+      saveCartInfo({ ...cartInfo });
+    } else {
+      dispatch(showMessage("Max amount valid"));
+      /*hidden message*/
+      setTimeout(() => {
+        dispatch(hiddenMessage());
+      }, 2100);
     }
-
-    cartInfo.price = (product.price * cartInfo.amount).toFixed(2);
-
-    saveCartInfo({ ...cartInfo });
   };
 
   const addToCart = () => {
-    dispatch(
-      setItemToCart({
-        id: 1,
-        name: "Product Name",
-        details: "Details",
-        price: cartInfo.price,
-        amount: cartInfo.amount,
-      })
-    );
-    dispatch(showMessage("Product Register"));
+    let message = "Max amount valid";
+    if (product.amountInInventory >= cartInfo.amount) {
+      dispatch(
+        setItemToCart({
+          id: product.id,
+          name: product.name,
+          details: product.details,
+          price: cartInfo.price,
+          amount: cartInfo.amount,
+          amountInInventory: cartInfo.amountInInventory
+        })
+      );
+      message = "Product Register";
+    }
+    dispatch(showMessage(message));
     /*hidden message*/
     setTimeout(() => {
       dispatch(hiddenMessage());

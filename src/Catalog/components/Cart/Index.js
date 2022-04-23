@@ -1,13 +1,36 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setItemToCart, removeItemToCart, deleteItemToCart } from "../../../actions/CartActions";
 import "./cart_style.css";
 
-const CartProduct = ({ id, image, name, details, price, count }) => {
+/*Redux*/
+import {
+  setItemToCart,
+  removeItemToCart,
+  deleteItemToCart,
+} from "../../../actions/CartActions";
+import { showMessage, hiddenMessage } from "../../../actions/UtilitiesActions";
+
+const CartProduct = ({
+  id,
+  image,
+  name,
+  details,
+  price,
+  count,
+  amountInInventory,
+}) => {
   const dispatch = useDispatch();
 
   const addProduct = () => {
-    dispatch(setItemToCart({ id, name, details, price, amount: 1 }));
+    if (amountInInventory > count) {
+      dispatch(setItemToCart({ id, name, details, price, amount: 1 }));
+    } else {
+      dispatch(showMessage("Max amount valid"));
+      /*hidden message*/
+      setTimeout(() => {
+        dispatch(hiddenMessage());
+      }, 2100);
+    }
   };
 
   const removeProduct = () => {
@@ -28,7 +51,11 @@ const CartProduct = ({ id, image, name, details, price, count }) => {
         <p>{details}</p>
         <span>{`$${price}`}</span>
         <div>
-          <span className='trash' title='Delete Product' onClick={deleteProduct}>
+          <span
+            className='trash'
+            title='Delete Product'
+            onClick={deleteProduct}
+          >
             <svg
               width='21'
               height='22'

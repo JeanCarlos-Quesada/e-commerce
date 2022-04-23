@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteUser } from "../../actions/UserActions";
 import "./HeaderMenu_Style.css";
 
-const HeaderMenu = ({ type }) => {
-  const dispatch = useDispatch();
+/*Hooks*/
+import useUser from "../../hooks/useUser";
 
+const HeaderMenu = ({ type }) => {
+  const { LogOut } = useUser();
   const [elements, saveElements] = React.useState([]);
 
   React.useEffect(() => {
@@ -41,7 +41,7 @@ const HeaderMenu = ({ type }) => {
 
   const logOut = async (link) => {
     if (link === "/") {
-      dispatch(deleteUser(undefined));
+      LogOut();
     }
   };
 
